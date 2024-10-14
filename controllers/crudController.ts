@@ -32,4 +32,15 @@ async function createItem(req: Request): Promise<Response> {
   });
 }
 
-export { getAllItems, getItemById, createItem };
+async function updateItem(id: number, req: Request): Promise<Response> {
+  const body = await req.json();
+  const success = await CrudModel.update(id || 0, body);
+  
+  if (success) {
+    return new Response("Item updated", { status: 200 });
+  } else {
+    return new Response("Item not found", { status: 404 });
+  }
+}
+
+export { getAllItems, getItemById, createItem, updateItem };

@@ -1,4 +1,4 @@
-import { getAllItems, getItemById, createItem } from "./controllers/crudController.ts";
+import { getAllItems, getItemById, createItem, updateItem } from "./controllers/crudController.ts";
 
 export default async function handler(req: Request): Promise<Response> {
   const url = new URL(req.url);
@@ -11,6 +11,9 @@ export default async function handler(req: Request): Promise<Response> {
     return await getAllItems();
   } else if (req.method === "POST" && path === "/task") {
     return await createItem(req);
+  } else if (req.method === "PUT" && path === "/task") {
+    const id = Number(url.searchParams.get("id"));
+    return await updateItem(id, req);
   } else {
     return new Response("Not Found", { status: 404 });
   }
