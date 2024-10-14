@@ -1,5 +1,14 @@
 import { CrudModel } from "../models/crudModel.ts";
 
+async function getAllItems(): Promise<Response> {
+  const items = CrudModel.readAll();
+  
+  return new Response(JSON.stringify(items), { 
+    status: 200, 
+    headers: { "Content-Type": "application/json" } 
+  });
+}
+
 async function getItemById(id: number): Promise<Response> {
   const item = CrudModel.read(id || 0);
   
@@ -13,4 +22,4 @@ async function getItemById(id: number): Promise<Response> {
   }
 }
 
-export { getItemById };
+export { getAllItems, getItemById };

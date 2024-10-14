@@ -18,6 +18,20 @@ export const CrudModel = {
     return id;
   },
 
+  readAll(): CrudItem[] | null {
+    const result = db.query<[number, string, string, string, string]>("SELECT * FROM crud");
+    if (result) {
+      return result.map(([id, title, body, author, published]) => ({
+        id: id.toString(),
+        title,
+        body,
+        author,
+        published: new Date(published),
+      }));
+    }
+    return null;
+  },
+
   read(id: number): CrudItem | null {
     const result = db.query<[number, string, string, string, string]>(
       "SELECT * FROM crud WHERE id = ?",
