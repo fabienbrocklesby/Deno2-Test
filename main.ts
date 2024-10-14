@@ -1,5 +1,5 @@
 import "jsr:@std/dotenv/load"
-import { getItems } from "./controllers/crudController.ts";
+import { getItemById } from "./controllers/crudController.ts";
 
 const PORT = Number(Deno.env.get("PORT")) || 4242;
 
@@ -9,7 +9,7 @@ async function handler(req: Request): Promise<Response> {
 
   if (req.method === "GET" && path === "/") {
     const id = Number(url.searchParams.get("id"));
-    return await getItems(id);
+    return await getItemById(id);
   } else {
     return new Response("Not Found", { status: 404 });
   }

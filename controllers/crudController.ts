@@ -1,6 +1,6 @@
 import { CrudModel } from "../models/crudModel.ts";
 
-async function getItems(id: number): Promise<Response> {
+async function getItemById(id: number): Promise<Response> {
   const item = CrudModel.read(id || 0);
   
   if (item) {
@@ -13,4 +13,4 @@ async function getItems(id: number): Promise<Response> {
   }
 }
 
-export { getItems };
+export { getItemById };
