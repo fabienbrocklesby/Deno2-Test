@@ -9,13 +9,13 @@ export interface CrudItem {
 }
 
 export const CrudModel = {
-  create(item: Omit<CrudItem, 'id'>): string {
-    const id = crypto.randomUUID();
+  create(item: Omit<CrudItem, 'id'>): number {
+    console.log(item);
     db.query(
-      "INSERT INTO crud (id, title, body, author, published) VALUES (?, ?, ?, ?, ?)",
-      [id, item.title, item.body, item.author, item.published.toISOString()]
+      "INSERT INTO crud (title, body, author, published) VALUES (?, ?, ?, ?)",
+      [item.title, item.body, item.author, item.published]
     );
-    return id;
+    return db.lastInsertRowId;
   },
 
   readAll(): CrudItem[] | null {

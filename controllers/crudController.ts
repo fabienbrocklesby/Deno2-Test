@@ -22,4 +22,14 @@ async function getItemById(id: number): Promise<Response> {
   }
 }
 
-export { getAllItems, getItemById };
+async function createItem(req: Request): Promise<Response> {
+  const body = await req.json();
+  const item = await CrudModel.create(body);
+  
+  return new Response(JSON.stringify(item), { 
+    status: 201, 
+    headers: { "Content-Type": "application/json" } 
+  });
+}
+
+export { getAllItems, getItemById, createItem };
