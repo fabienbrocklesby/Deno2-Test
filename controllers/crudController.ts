@@ -1,7 +1,7 @@
 import { CrudModel } from "../models/crudModel.ts";
 
 async function getAllItems(): Promise<Response> {
-  const items = CrudModel.readAll();
+  const items = await CrudModel.readAll();
   
   return new Response(JSON.stringify(items), { 
     status: 200, 
@@ -10,7 +10,7 @@ async function getAllItems(): Promise<Response> {
 }
 
 async function getItemById(id: number): Promise<Response> {
-  const item = CrudModel.read(id || 0);
+  const item = await CrudModel.read(id || 0);
   
   if (item) {
     return new Response(JSON.stringify(item), { 
